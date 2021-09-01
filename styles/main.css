@@ -11,5 +11,5 @@ body {
     height: 88vh;
     overflow-x: hidden;
     padding: 10px;
-    background-image: filterurl('/img/bg.jpg');
+    background-image: url('/img/bg.jpg');
 }
