@@ -9,11 +9,22 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <!-- links -->
     <link rel="stylesheet" href="styles/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
+
+<script>
+    let from = null, start = 0;
+    $(document).ready(function () {
+        from = prompt('Enter your name')
+        alert('Hello ' + from + '!')
+    }) 
+</script>
+
 <body>
     <div class="messages"></div>
+
         <form action="" method="POST">
-            <input type="text" id="message" autocomplete="off" autofocus placeholder="Your message...">
+            <input type="text" class="message" autocomplete="off" autofocus placeholder="Your message...">
             <input type="submit" value="Send message">
         </form>
 </body>

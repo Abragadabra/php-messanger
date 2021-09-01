@@ -28,6 +28,6 @@ input {
     border-radius: 5px;
 }
 
-#mesage {
+.message {
     flex: 2;
 }
