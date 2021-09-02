@@ -31,16 +31,22 @@ input {
 .message_block {
     color: #fff;
     font-size: 15px;
-    background-color: #11052C;
+    background-color: #1b2f52;
     padding: 5px 10px;
     border-radius: 8px;
     margin-bottom: 8px;
     width: fit-content;
+    border: 1px solid #0c1525;
 }
 
 .message_block p {
     margin: 0;
     font-weight: bold;
+}
+
+.message_block i {
+    font-size: 0.7rem;
+    margin-left: 15px;
 }
 
 #message {

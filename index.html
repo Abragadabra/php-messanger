@@ -37,13 +37,16 @@
                     start = item.id
                     $('.messages').append(renderMessage(item))
                 })
+                $('.messages').animate({"scrollTop": $('.messages')[0].scrollHeight});
             }
             load()
         })
     } 
 
     function renderMessage(item) {
-        return `<div class="message_block"><p>${item.username}</p>${item.message}</div>`
+        let time = new Date(item.created)
+        time = `${time.getHours()}:${time.getMinutes() < 10 ? '0' : ''}${time.getMinutes()}`
+        return `<div class="message_block"><p>${item.username}</p>${item.message}<i>${time}</i></div>`
     }
 </script>
 
