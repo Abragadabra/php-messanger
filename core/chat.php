@@ -11,12 +11,12 @@ $from = isset($_POST['from']) ? $_POST['from'] : null;
 if (!empty($message) && !empty($from)) {
 
     //? SQL запрос
-    $sql = 'INSERT INTO messages (message, from) VALUES (:message, :from)';
+    $sql = 'INSERT INTO messages (message, username) VALUES (:message, :username)';
 
     //? Вместо :message и :from помещаю данные пользователя
     $params = [
         'message' => $message,
-        'from' => $from
+        'username' => $from
     ];
 
     //? Подготавливаю запрос в БД
