@@ -13,18 +13,27 @@
 </head>
 
 <script>
-    let from = null, start = 0; // from имеет изначально значение null
+    let from = null, start = 0, url = 'http://messanger.loc/core/chat.php'; // from имеет изначально значение null
     $(document).ready(function () {
         from = prompt('Enter your username') // Получаю username
-        alert('Hello ' + from + '!') // Пишу привет <username>
+        $('form').submit(function (e) {
+            $.post(url, {
+                message: $('#message').val(),
+                from: from
+            })
+
+            $('#message').val('')
+
+            return false
+        })
     }) 
 </script>
 
 <body>
     <div class="messages"></div>
 
-        <form action="" method="POST">
-            <input name="message" type="text" class="message" autocomplete="off" autofocus placeholder="Your message...">
+        <form>
+            <input type="text" id="message" autocomplete="off" autofocus placeholder="Your message...">
             <input type="submit" value="Send message">
         </form>
 </body>
