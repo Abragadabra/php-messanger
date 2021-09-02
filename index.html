@@ -16,6 +16,8 @@
     let from = null, start = 0, url = 'http://messanger.loc/core/chat.php'; // from имеет изначально значение null
     $(document).ready(function () {
         from = prompt('Enter your username') // Получаю username
+        load()
+
         $('form').submit(function (e) {
             $.post(url, {
                 message: $('#message').val(),
@@ -26,7 +28,23 @@
 
             return false
         })
-    }) 
+    })
+
+    function load() {
+        $.get(url + '?start=' + start, function (result) {
+            if (result.items) {
+                result.items.forEach(item => {
+                    start = item.id
+                    $('.messages').append(renderMessage(item))
+                })
+            }
+            load()
+        })
+    } 
+
+    function renderMessage(item) {
+        return `<div class="message_block"><p>${item.username}</p>${item.message}</div>`
+    }
 </script>
 
 <body>
