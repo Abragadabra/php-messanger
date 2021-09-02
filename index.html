@@ -13,18 +13,48 @@
 </head>
 
 <script>
-    let from = null, start = 0; // from имеет изначально значение null
+    let from = null, start = 0, url = 'http://messanger.loc/core/chat.php'; // from имеет изначально значение null
     $(document).ready(function () {
         from = prompt('Enter your username') // Получаю username
-        alert('Hello ' + from + '!') // Пишу привет <username>
-    }) 
+        load()
+
+        $('form').submit(function (e) {
+            $.post(url, {
+                message: $('#message').val(),
+                from: from
+            })
+
+            $('#message').val('')
+
+            return false
+        })
+    })
+
+    function load() {
+        $.get(url + '?start=' + start, function (result) {
+            if (result.items) {
+                result.items.forEach(item => {
+                    start = item.id
+                    $('.messages').append(renderMessage(item))
+                })
+                $('.messages').animate({"scrollTop": $('.messages')[0].scrollHeight});
+            }
+            load()
+        })
+    } 
+
+    function renderMessage(item) {
+        let time = new Date(item.created)
+        time = `${time.getHours()}:${time.getMinutes() < 10 ? '0' : ''}${time.getMinutes()}`
+        return `<div class="message_block"><p>${item.username}</p>${item.message}<i>${time}</i></div>`
+    }
 </script>
 
 <body>
     <div class="messages"></div>
 
-        <form action="" method="POST">
-            <input type="text" class="message" autocomplete="off" autofocus placeholder="Your message...">
+        <form>
+            <input type="text" id="message" autocomplete="off" autofocus placeholder="Your message...">
             <input type="submit" value="Send message">
         </form>
 </body>
