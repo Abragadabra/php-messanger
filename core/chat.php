@@ -25,6 +25,19 @@ if (!empty($message) && !empty($from)) {
     //? Результат запроса в базу, записываю в переменную
     $result['send_status'] = $query -> execute($params);
 
+    //? Отображаю сообщения
+    $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
+
+    $items = 'SELECT * FROM messages WHERE id >' . $start;
+
+    $query = $pdo -> prepare($items);
+
+    $query -> execute();
+
+    while($row = $query -> fetch(PDO::FETCH_OBJ)) {
+        $result['items'][] = $row;
+    }
+
     header('Access-Control-Allow-Orgin: *');
 
     //? Тип данных json
@@ -32,5 +45,7 @@ if (!empty($message) && !empty($from)) {
 
     //? Превращаю в json
     echo json_encode($result);
+} else {
+    die('ошибка');
 }
 ?>
