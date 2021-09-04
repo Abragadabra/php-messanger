@@ -1,5 +1,11 @@
 <?php
+//? Подключаю файл подключания к базе
 require_once 'connect.php';
+
+//? Заголовки
+header("Content-Security-Policy: default-src 'self'");
+header('Access-Control-Allow-Orgin: *');
+header('Content-Type: application/json');
 
 $result = array();
 
@@ -25,12 +31,6 @@ $items = $db -> query("SELECT * FROM `messages` WHERE `id` >" . $start);
 while($row = $items -> fetch_assoc()) {
     $result['items'][] = $row;
 }
-
-//? Закрываю подключание к базе
-$db -> close();
-
-header('Access-Control-Allow-Orgin: *');
-header('Content-Type: application/json');
 
 //? Превращаю в json 
 echo json_encode($result, JSON_UNESCAPED_UNICODE);
